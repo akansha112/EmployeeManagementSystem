@@ -1,5 +1,6 @@
 ﻿using EmployeeManagementSystem.Entities.DTOs;
 using EmployeeManagementSystem.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementSystem.Controllers
@@ -17,6 +18,7 @@ namespace EmployeeManagementSystem.Controllers
 
         // GET: api/employee
         [HttpGet]
+        [Authorize(Roles = "Admin,User")] 
         public async Task<IActionResult> GetAll()
         {
             var employees = await _repository.GetAllAsync();
@@ -25,6 +27,7 @@ namespace EmployeeManagementSystem.Controllers
 
         // GET: api/employee/{id}
         [HttpGet("{id:guid}")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var employee = await _repository.GetByIdAsync(id);
@@ -36,6 +39,7 @@ namespace EmployeeManagementSystem.Controllers
         }
         //Search an Employee
         [HttpGet("search")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Search([FromQuery] EmployeeQueryDto query)
         {
             var result = await _repository.GetFilteredAsync(query);
@@ -45,6 +49,7 @@ namespace EmployeeManagementSystem.Controllers
 
         // POST: api/employee
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateEmployeeDto dto)
         {
             var created = await _repository.CreateAsync(dto);
@@ -57,6 +62,7 @@ namespace EmployeeManagementSystem.Controllers
 
         // PUT: api/employee/{id}
         [HttpPut("{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(Guid id, UpdateEmployeeDto dto)
         {
             var updated = await _repository.UpdateAsync(id, dto);
@@ -68,6 +74,7 @@ namespace EmployeeManagementSystem.Controllers
         }
 
         // DELETE: api/employee/{id}
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
