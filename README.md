@@ -44,6 +44,9 @@ Example API call:
 
 GET /api/employees/search?name=rahul&sortBy=salary&isDescending=true
 
+- JWT authentication
+- Role-based authorization
+
 
 🧱 Database Design
 
@@ -55,9 +58,6 @@ GET /api/employees/search?name=rahul&sortBy=salary&isDescending=true
 
 
 📈 Future Enhancements
-
-- JWT authentication
-- Role-based authorization
 - Payroll module
 - Leave management
 - Pagination
